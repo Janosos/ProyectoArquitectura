@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 class Program
@@ -12,14 +13,19 @@ class Program
         {
             numeros.Add(i);
         }
-
         // Contar números pares usando foreach
+        var watch = Stopwatch.StartNew();
         int conteoSecuencial = ContarNumerosParesSecuencial(numeros);
-        Console.WriteLine($"Cantidad de números pares (foreach): {conteoSecuencial}");
-
+        watch.Stop();
+        
+        Console.WriteLine($"Cantidad de números pares (foreach): {conteoSecuencial} | Tiempo de ejecución : {watch.ElapsedMilliseconds} ms");
+        
         // Contar números pares usando Parallel.ForEach
+        var watchForParallel = Stopwatch.StartNew();
         int conteoParalelo = ContarNumerosParesParalelo(numeros);
-        Console.WriteLine($"Cantidad de números pares (Parallel.ForEach): {conteoParalelo}");
+        watchForParallel.Stop();
+
+        Console.WriteLine($"Cantidad de números pares (Parallel.ForEach): {conteoParalelo} | Tiempo de ejecución : {watchForParallel.ElapsedMilliseconds} ms");
 
         Console.ReadLine();
     }
